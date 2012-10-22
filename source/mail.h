@@ -18,16 +18,18 @@ private:
 
 public:
 	Message();
-	Message(vmime::ref <vmime::header> hd, vmime::ref <vmime::body> bdy); // used when reading messages in from the mail boxes
+	Message(vmime::ref <vmime::message> message); // used when reading messages in from the mail boxes
 
 	//getter functions
 	std::string getSubject();
 	std::string getSenderName();
 	std::string getSenderAddr();
     std::string getBody();
-
+    std::string getDate();
+    std::string getExpeditor();
+    vmime::ref <vmime::message> getMessage();
     //builder functions
-    void buildHeader(std::string subject, std::string from, std::string tos[], std::string txt);
+    void buildMessage(std::string subject, std::string from, std::vector<std::string>& tos, std::string txt);
 };
 
 

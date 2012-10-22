@@ -15,11 +15,16 @@ static std::string findAvailableProtocols(const vmime::net::service::Type type);
 class ConnectionHandler{
 private:
 	vmime::ref <vmime::net::transport> tr;
-
+	vmime::ref <vmime::net::store> store;
+	std::vector <vmime::ref <vmime::net::message> > messages;
 
 public:
-		vmime::ref <vmime::net::folder> connectStore();
-		void connectTransport();
+	~ConnectionHandler();
+	void connectStore();
+	void connectTransport();
+	void sendMessage(Message& mail);
+	std::vector<vmime::ref<vmime::message> > getUnreadMessages();
+	std::vector<vmime::ref<vmime::message> > getSampleMessages(int to); //for testing only
 };
 
 

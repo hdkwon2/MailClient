@@ -12,9 +12,12 @@
 #include <regex>
 
 
+class mailParser{
 	//Getter functions
-static bool isSubjectContain(Message & mail, std::string keyword);
-
+public:
+	static bool isStringContain(std::string subject, std::string keyword);
+	static bool isDateInBetween(Message& mail, std::string from, std::string to = "");
+};
 
 
 
