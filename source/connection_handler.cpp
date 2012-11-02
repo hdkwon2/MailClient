@@ -9,6 +9,7 @@
 #include "vmime/platforms/posix/posixHandler.hpp"
 #include "mail.h"
 #include "mail_parser.h"
+#include "script_parser.h"
 #include "connection_handler.h"
 #include <iostream>
 using namespace std;
@@ -379,9 +380,8 @@ vector <vmime::ref <vmime::message>> ConnectionHandler::getUnreadMessages(){
 	try {
 		vmime::ref <vmime::net::folder> folder = store->getDefaultFolder();
 		folder->open(vmime::net::folder::MODE_READ_WRITE);
-		messages = folder->getMessages(3, 3);
-
-		folder->fetchMessages(messages, vmime::net::folder::FETCH_STRUCTURE);
+		messages = folder->getMessages();
+//		folder->fetchMessages(messages, vmime::net::folder::FETCH_STRUCTURE);
 		vector<vmime::ref<vmime::message>> unreadMessages;
 		//Read all the messages
 		messages = folder->getMessages();
@@ -443,15 +443,16 @@ vector <vmime::ref <vmime::message> > ConnectionHandler::getSampleMessages(int t
 int main(int arc, const char* argv[]){
 	//must set this platform handler before using any vmime objects
 	vmime::platform::setHandler <vmime::platforms::posix::posixHandler>();
-	vmime::utility::outputStreamAdapter out(cout);
-	ConnectionHandler *ch = new ConnectionHandler();
-	ch->connectTransport();
-	Message *mail = new Message();
-	vector< string >tos;
-	tos.push_back("hyukdonkwon@gmail.com");
-	mail->buildMessage("Testing send function", "hyukdonkwon@gmail.com", tos, "I'm testing with this message");
 
-	ch->sendMessage(*mail);
+//	vmime::utility::outputStreamAdapter out(cout);
+//	ConnectionHandler *ch = new ConnectionHandler();
+//	ch->connectTransport();
+//	Message *mail = new Message();
+//	vector< string >tos;
+//	tos.push_back("hyukdonkwon@gmail.com");
+//	mail->buildMessage("Testing send function", "hyukdonkwon@gmail.com", tos, "I'm testing with this message");
+//
+//	ch->sendMessage(*mail);
 //	ch->connectStore();
 //	int sampleSize = 1;
 //	vector <vmime::ref <vmime::message> > messages = ch->getSampleMessages(sampleSize);
@@ -464,6 +465,7 @@ int main(int arc, const char* argv[]){
 //		cout << mailParser::isDateInBetween(*mail, "24 Apr 2011 1:00:00") << endl;
 //		cout << "end of the list" << endl;
 //	}
-	delete ch;
+//	delete ch;
+	ScriptParser::readFile("script");
 	return 1;
 }

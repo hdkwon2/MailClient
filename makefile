@@ -1,4 +1,4 @@
-OBJECTS = connection_handler.o mail.o mail_parser.o
+OBJECTS = connection_handler.o mail.o mail_parser.o script_parser.o
 CFLAGS = -I/usr/local/include/ -I/usr/local/include -I/usr/local/include/p11-kit-1  -L/usr/local/lib -lvmime -lgnutls -lgsasl -std=c++0x
 
 all: imap
@@ -14,6 +14,9 @@ mail.o : source/mail.cpp source/mail.h
 	
 mail_parser.o: source/mail_parser.cpp source/mail_parser.h
 	g++ -c source/mail_parser.cpp $(CFLAGS)
+	
+script_parser.o: source/script_parser.cpp source/script_parser.h
+	g++ -c source/script_parser.cpp $(CFALGS)
 	
 clean : 
 	rm -rf *o imap
